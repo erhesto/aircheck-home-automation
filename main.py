@@ -2,6 +2,8 @@ import requests
 import logging
 import itertools
 
+from filelock import FileLock
+
 import settings
 from utils import handle_exceptions
 from datatypes import Coordinates, PollutionType, PollutionTypeDangerLevel
@@ -57,9 +59,11 @@ def check_status() -> bool:
 
 def main():
     all_is_good = check_status()
-    with open(settings.OUTPUT_PATH, 'w') as out_file:
-        if not all_is_good or settings.DEBUG:
-            out_file.write('1')
+    
+    with FileLock(f'{settings.OUTPUT_PATH}.lock') as lock:
+        with open(settings.OUTPUT_PATH, 'w') as out_file:
+            if not all_is_good or settings.DEBUG:
+                out_file.write('1')
 
 
 if __name__ == '__main__':
