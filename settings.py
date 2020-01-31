@@ -10,7 +10,7 @@ MAX_RESULTS = int(os.environ.get('MAX_RESULTS', 1))
 API_URL = 'https://airapi.airly.eu/v2'
 OUTPUT_PATH = 'status_file'
 LOG_FILE = 'aircheck.log'
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', 1))
 LOG_FORMAT='%(asctime)s:%(message)s'
 
 # set up logging to file - see previous section for more details
