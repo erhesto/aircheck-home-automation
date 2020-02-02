@@ -59,10 +59,11 @@ def check_status() -> bool:
 
 def main():
     all_is_good = check_status()
+    logging.DEBUG("Aircheck result: %s", all_is_good)
     
     with FileLock(f'{settings.OUTPUT_PATH}.lock') as lock:
         with open(settings.OUTPUT_PATH, 'w') as out_file:
-            if not all_is_good or settings.DEBUG:
+            if not all_is_good:
                 out_file.write('1')
 
 
